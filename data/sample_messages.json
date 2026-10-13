@@ -1,0 +1,142 @@
+[
+  {
+    "id": "msg001",
+    "message": "My rent payment was deducted but my account still shows that I owe money.",
+    "expected_category": "rent_finance",
+    "expected_queue": "support",
+    "expected_urgent": false
+  },
+  {
+    "id": "msg002",
+    "message": "Please can you confirm if my rent for this month has been received?",
+    "expected_category": "rent_finance",
+    "expected_queue": "support",
+    "expected_urgent": false
+  },
+  {
+    "id": "msg003",
+    "message": "I need help getting a refund for my security deposit.",
+    "expected_category": "rent_finance",
+    "expected_queue": "support",
+    "expected_urgent": false
+  },
+  {
+    "id": "msg004",
+    "message": "The bathroom tap is leaking badly and needs to be repaired.",
+    "expected_category": "maintenance",
+    "expected_queue": "operations",
+    "expected_urgent": false
+  },
+  {
+    "id": "msg005",
+    "message": "There is no electricity in the apartment since yesterday.",
+    "expected_category": "maintenance",
+    "expected_queue": "operations",
+    "expected_urgent": false
+  },
+  {
+    "id": "msg006",
+    "message": "The kitchen pipe has burst and water is flooding the apartment.",
+    "expected_category": "maintenance",
+    "expected_queue": "operations",
+    "expected_urgent": true
+  },
+  {
+    "id": "msg007",
+    "message": "I smell gas in the kitchen. Please send someone immediately.",
+    "expected_category": "maintenance",
+    "expected_queue": "operations",
+    "expected_urgent": true
+  },
+  {
+    "id": "msg008",
+    "message": "Is the two-bedroom apartment on your website still available?",
+    "expected_category": "listing",
+    "expected_queue": "support",
+    "expected_urgent": false
+  },
+  {
+    "id": "msg009",
+    "message": "I want to schedule a viewing for the apartment advertised online.",
+    "expected_category": "listing",
+    "expected_queue": "support",
+    "expected_urgent": false
+  },
+  {
+    "id": "msg010",
+    "message": "Can you send me the price and details for the property you have listed?",
+    "expected_category": "listing",
+    "expected_queue": "support",
+    "expected_urgent": false
+  },
+  {
+    "id": "msg011",
+    "message": "I'm interested in investing in residential properties. Who can I speak with?",
+    "expected_category": "investment",
+    "expected_queue": "partnerships",
+    "expected_urgent": false
+  },
+  {
+    "id": "msg012",
+    "message": "I have funds available and would like to discuss a property investment opportunity.",
+    "expected_category": "investment",
+    "expected_queue": "partnerships",
+    "expected_urgent": false
+  },
+  {
+    "id": "msg013",
+    "message": "We are looking for a property investment partner in Lagos. Can we arrange a call?",
+    "expected_category": "investment",
+    "expected_queue": "partnerships",
+    "expected_urgent": false
+  },
+  {
+    "id": "msg014",
+    "message": "pls help, my rent payment isnt showing",
+    "expected_category": "rent_finance",
+    "expected_queue": "support",
+    "expected_urgent": false
+  },
+  {
+    "id": "msg015",
+    "message": "The AC stopped working. Also, can you tell me whether my rent payment went through?",
+    "expected_category": "maintenance",
+    "expected_queue": "operations",
+    "expected_urgent": false
+  },
+  {
+    "id": "msg016",
+    "message": "I want to advertise my property with you and need to know how your listings work.",
+    "expected_category": "listing",
+    "expected_queue": "support",
+    "expected_urgent": false
+  },
+  {
+    "id": "msg017",
+    "message": "The ceiling is leaking and water is coming into the bedroom.",
+    "expected_category": "maintenance",
+    "expected_queue": "operations",
+    "expected_urgent": true
+  },
+  {
+    "id": "msg018",
+    "message": "Can someone explain the investment returns on this property?",
+    "expected_category": "investment",
+    "expected_queue": "partnerships",
+    "expected_urgent": false
+  },
+  {
+    "id": "msg019",
+    "message": "How much is the monthly rent for the three bedroom flat?",
+    "expected_category": "rent_finance",
+    "expected_queue": "support",
+    "expected_urgent": false
+  },
+  {
+    "id": "msg020",
+    "message": "Someone has broken into the property. We need help now.",
+    "expected_category": "maintenance",
+    "expected_queue": "operations",
+    "expected_urgent": true
+  }
+]
