@@ -14,6 +14,7 @@ This prototype demonstrates how AI can automate the first stage of that triage p
 
 The workflow is:
 
+```text
 Inbound message
       |
       v
@@ -27,24 +28,27 @@ LLM classification
       |
       v
 Structured JSON result
+```
 
 The classifier returns structured JSON such as:
 
+```json
 {
   "category": "maintenance",
   "queue": "operations",
   "urgent": true,
   "reason": "Tenant reports active flooding caused by a burst pipe."
 }
+```
 
 ## Categories and Routing
 
 | Category | Queue | Examples |
 |---|---|---|
-| rent_finance | support | Rent amounts, payments, invoices, balances, deposits |
-| maintenance | operations | Repairs, plumbing, electrical, utilities, property damage |
-| listing | support | Listings, availability, viewings, property details |
-| investment | partnerships | Investment opportunities, investors, partnerships |
+| `rent_finance` | `support` | Rent amounts, payments, invoices, balances, deposits |
+| `maintenance` | `operations` | Repairs, plumbing, electrical, utilities, property damage |
+| `listing` | `support` | Listings, availability, viewings, property details |
+| `investment` | `partnerships` | Investment opportunities, investors, partnerships |
 
 Urgency is evaluated independently of category.
 
@@ -54,14 +58,15 @@ Examples of urgent situations include flooding, fire, gas leaks, serious electri
 
 - Python
 - OpenAI API
-- gpt-5.4-mini
-- python-dotenv
+- `gpt-5.4-mini`
+- `python-dotenv`
 - Git/GitHub
 
 The prototype intentionally uses a small Python implementation rather than introducing unnecessary infrastructure. The task is to demonstrate the triage logic, prompt design, testing approach and awareness of failure modes.
 
 ## Project Structure
 
+```text
 conekta-message-triage/
 ├── README.md
 ├── classifier.py
@@ -77,44 +82,57 @@ conekta-message-triage/
     └── evidence/
         ├── evaluation-summary.png
         └── failure-fix.png
+```
 
 ## Setup
 
 ### 1. Clone the repository
 
-git clone <repository-url>
+```bash
+git clone https://github.com/gregodprogrammer/conekta-message-triage.git
 cd conekta-message-triage
+```
 
 ### 2. Create a virtual environment
 
+```bash
 python3 -m venv .venv
 source .venv/bin/activate
+```
 
 ### 3. Install dependencies
 
+```bash
 pip install -r requirements.txt
+```
 
 ### 4. Configure the API key
 
-Create a .env file:
+Create a `.env` file:
 
+```bash
 cp .env.example .env
+```
 
-Then add your API key to .env.
+Then add your API key to `.env`.
 
-Never commit the .env file or expose the API key.
+Never commit the `.env` file or expose the API key.
 
 ## Run the Classifier
 
 Start the interactive classifier:
 
+```bash
 python classifier.py
+```
 
 Enter an inbound message when prompted.
 
 Example:
 
+```text
 The kitchen pipe has burst and water is flooding the apartment.
+```
 
 The classifier returns structured JSON containing the category, queue, urgency flag and a short reason.
 
@@ -146,7 +164,7 @@ The initial evaluation produced:
 
 Evaluation evidence is available in:
 
-docs/evidence/evaluation-summary.png
+`docs/evidence/evaluation-summary.png`
 
 ## Observed Failure and Prompt Refinement
 
@@ -154,38 +172,38 @@ One classification failure was observed during the initial evaluation.
 
 ### Failed Case
 
-Message:
+**Message:**
 
-How much is the monthly rent for the three bedroom flat?
+> How much is the monthly rent for the three bedroom flat?
 
-Expected:
+**Expected:**
 
-rent_finance / support / urgent=false
+`rent_finance / support / urgent=false`
 
-Initial prediction:
+**Initial prediction:**
 
-listing / support / urgent=false
+`listing / support / urgent=false`
 
 ### Why It Happened
 
-The original listing definition included "pricing inquiries". This created an ambiguity between property listing information and questions specifically about monthly rent.
+The original `listing` definition included "pricing inquiries". This created an ambiguity between property listing information and questions specifically about monthly rent.
 
 ### Change Made
 
 The prompt was refined so that:
 
-- Monthly rent amounts are explicitly included under rent_finance.
-- Questions specifically asking for the monthly rent amount are explicitly excluded from listing.
+- Monthly rent amounts are explicitly included under `rent_finance`.
+- Questions specifically asking for the monthly rent amount are explicitly excluded from `listing`.
 
 ### Targeted Retest
 
 The failed message was tested again after the prompt refinement and was correctly classified as:
 
-rent_finance / support / urgent=false
+`rent_finance / support / urgent=false`
 
 Evidence:
 
-docs/evidence/failure-fix.png
+`docs/evidence/failure-fix.png`
 
 The full 20-message evaluation was not rerun after the prompt change because the purpose of the retest was specifically to verify the observed failure correction without unnecessarily consuming API credits.
 
@@ -195,7 +213,7 @@ The full 20-message evaluation was not rerun after the prompt change because the
 
 A message may contain language that overlaps categories. For example, property pricing can refer either to listing information or monthly rent.
 
-Mitigation: make category boundaries explicit in the system prompt and add boundary-focused test cases.
+**Mitigation:** make category boundaries explicit in the system prompt and add boundary-focused test cases.
 
 ### 2. Multi-Intent Messages
 
@@ -203,7 +221,7 @@ A message can contain more than one request, such as a maintenance problem and a
 
 The current prototype assigns one primary category. A production system could support multiple intents or create separate tasks for each request.
 
-Next change: support multiple intents or split multi-intent messages into separate operational tasks.
+**Next change:** support multiple intents or split multi-intent messages into separate operational tasks.
 
 ### 3. Urgency Interpretation
 
@@ -211,19 +229,19 @@ The model may not recognize every possible emergency or may incorrectly flag unu
 
 A production implementation should combine model classification with explicit emergency rules and human escalation.
 
-Next change: add deterministic emergency rules alongside the LLM and route uncertain cases for human review.
+**Next change:** add deterministic emergency rules alongside the LLM and route uncertain cases for human review.
 
 ### 4. Queue Assumptions
 
 The queue mappings in this prototype are based on the task specification. A production deployment would require confirmation of Conekta's actual operational teams, escalation paths and service-level expectations.
 
-Next change: validate queue ownership and escalation rules with the operations team before production deployment.
+**Next change:** validate queue ownership and escalation rules with the operations team before production deployment.
 
 ## Prompt Design
 
 The exact final system prompt and the reasoning behind the prompt design are documented in:
 
-docs/prompt-notes.md
+`docs/prompt-notes.md`
 
 The prompt uses:
 
@@ -240,10 +258,10 @@ AI and online resources were permitted for this assessment.
 
 The following tools were used:
 
-- ChatGPT: used for problem decomposition, prompt refinement, documentation review and development guidance.
-- OpenAI API: used to classify the synthetic inbound messages.
-- Python: used to implement the classifier and evaluation script.
-- Git/GitHub: used for version control and repository delivery.
+- **ChatGPT:** used for problem decomposition, prompt refinement, documentation review and development guidance.
+- **OpenAI API:** used to classify the synthetic inbound messages.
+- **Python:** used to implement the classifier and evaluation script.
+- **Git/GitHub:** used for version control and repository delivery.
 
 No real company or personal data was used.
 
@@ -281,10 +299,10 @@ This prototype demonstrates a complete AI-assisted inbound triage workflow from 
 
 The implementation was tested using 20 synthetic messages and achieved:
 
-- 95.0% category accuracy
-- 100.0% queue accuracy
-- 100.0% urgency accuracy
-- 95.0% end-to-end accuracy
+- **95.0% category accuracy**
+- **100.0% queue accuracy**
+- **100.0% urgency accuracy**
+- **95.0% end-to-end accuracy**
 
 The evaluation also demonstrated an iterative development process: an actual classification failure was identified, the prompt was refined to address the ambiguity, and the failed case was retested successfully.
 
